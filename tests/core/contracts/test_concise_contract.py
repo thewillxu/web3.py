@@ -49,7 +49,9 @@ def test_concisecontract_unknown_keyword_fails():
 def test_class_construction_sets_class_vars(web3,
                                             MATH_ABI,
                                             MATH_CODE,
-                                            MATH_RUNTIME):
+                                            MATH_RUNTIME,
+                                            some_address,
+                                            ):
     MathContract = web3.eth.contract(
         abi=MATH_ABI,
         bytecode=MATH_CODE,
@@ -57,7 +59,7 @@ def test_class_construction_sets_class_vars(web3,
         ContractFactoryClass=ConciseContract,
     )
 
-    math = MathContract()
+    math = MathContract(some_address)
     classic = math._classic_contract
     assert classic.web3 == web3
     assert classic.bytecode == MATH_CODE
